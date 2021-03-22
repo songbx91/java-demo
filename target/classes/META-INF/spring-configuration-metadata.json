@@ -1,0 +1,77 @@
+{
+  "groups": [
+    {
+      "name": "momento",
+      "type": "com.example.hello.config.MomentoConfig",
+      "sourceType": "com.example.hello.config.MomentoConfig"
+    },
+    {
+      "name": "shumei",
+      "type": "com.example.hello.config.ShumeiConfig",
+      "sourceType": "com.example.hello.config.ShumeiConfig"
+    },
+    {
+      "name": "tupu",
+      "type": "com.example.hello.config.TupuConfig",
+      "sourceType": "com.example.hello.config.TupuConfig"
+    }
+  ],
+  "properties": [
+    {
+      "name": "momento.match-rate",
+      "type": "java.lang.Integer",
+      "sourceType": "com.example.hello.config.MomentoConfig"
+    },
+    {
+      "name": "shumei.female-confirm-label",
+      "type": "java.util.List<java.lang.Integer>",
+      "sourceType": "com.example.hello.config.ShumeiConfig"
+    },
+    {
+      "name": "shumei.normal-confidence-score",
+      "type": "java.lang.Double",
+      "sourceType": "com.example.hello.config.ShumeiConfig"
+    },
+    {
+      "name": "shumei.porn-confidence-score",
+      "type": "java.lang.Double",
+      "sourceType": "com.example.hello.config.ShumeiConfig"
+    },
+    {
+      "name": "shumei.secret-id",
+      "type": "java.lang.String",
+      "sourceType": "com.example.hello.config.ShumeiConfig"
+    },
+    {
+      "name": "shumei.sexy-confidence-score",
+      "type": "java.lang.Double",
+      "sourceType": "com.example.hello.config.ShumeiConfig"
+    },
+    {
+      "name": "tupu.female-confirm-label",
+      "type": "java.util.List<java.lang.Integer>",
+      "sourceType": "com.example.hello.config.TupuConfig"
+    },
+    {
+      "name": "tupu.normal-confidence-score",
+      "type": "java.lang.Double",
+      "sourceType": "com.example.hello.config.TupuConfig"
+    },
+    {
+      "name": "tupu.porn-confidence-score",
+      "type": "java.lang.Double",
+      "sourceType": "com.example.hello.config.TupuConfig"
+    },
+    {
+      "name": "tupu.secret-id",
+      "type": "java.lang.String",
+      "sourceType": "com.example.hello.config.TupuConfig"
+    },
+    {
+      "name": "tupu.sexy-confidence-score",
+      "type": "java.lang.Double",
+      "sourceType": "com.example.hello.config.TupuConfig"
+    }
+  ],
+  "hints": []
+}
