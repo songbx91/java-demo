@@ -1,11 +1,13 @@
 package com.example.hello.controller;
 
 import com.example.hello.helper.FriendshipHelper;
-import com.example.hello.model.Blacklist;
-import com.example.hello.model.Friendship;
-import com.example.hello.model.HelloModel;
+import com.example.hello.model.*;
+import com.example.hello.model.dynamo.UserV2;
 import com.example.hello.model.type.GenderEnum;
+//import com.example.hello.repository.ArticleRepository;
+//import com.example.hello.repository.CirclesRepository;
 import com.example.hello.repository.HelloRepository;
+import com.example.hello.repository.UserV2Repository;
 import com.example.hello.request.FriendApply;
 import com.example.hello.resource.ResultVO;
 import com.example.hello.service.IBlacklistService;
@@ -15,12 +17,11 @@ import com.example.hello.utils.GeneralUtils;
 import com.example.hello.utils.JsonUtils;
 import com.example.hello.utils.JwtUtils;
 import com.example.hello.utils.ResultVOUtil;
+import org.joda.time.DateTime;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.dao.DataAccessException;
-import org.springframework.data.redis.core.RedisOperations;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.redis.core.RedisTemplate;
-import org.springframework.data.redis.core.SessionCallback;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -30,7 +31,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/v1")
@@ -54,6 +54,40 @@ public class HelloController {
     @Autowired
     private FriendshipHelper friendshipHelper;
 
+//    @Autowired
+//    private CirclesRepository circlesRepository;
+//
+//    @Autowired
+//    private ArticleRepository articleRepository;
+
+    @Autowired
+    private UserV2Repository userV2Repository;
+
+    @PostMapping("/user-create")
+    public void userCreate(@RequestParam("id") String id,
+                           @RequestParam("first_name") String firstName,
+                           @RequestParam("last_name") String lastName) {
+        UserV2 user = new UserV2();
+        user.setId(id);
+        user.setFirstName(firstName);
+        user.setLastName(lastName);
+        userV2Repository.save(user);
+    }
+
+//    @PostMapping("/article-create")
+//    public void articleCreate(@RequestParam("content") String content,
+//                              @RequestParam("type") String type,
+//                              @RequestParam("author") String author) {
+//        Article article = new Article();
+//        article.setSk("articleInfo");
+//        article.setContent(content);
+//        article.setType(type);
+//        article.setAuthor(author);
+//        System.out.println(article.toString());
+//        articleRepository.save(article);
+////        System.out.println("保存成功g");
+//    }
+
     @PostMapping("/get-token")
     public ResultVO<Object> getToken() throws IOException {
         String token = JwtUtils.createJWT(String.valueOf(new Date()), "user1", 60000L);
@@ -76,6 +110,18 @@ public class HelloController {
         }
         return listOptional.get();
     }
+
+//    @PostMapping("/circle-create")
+//    public void createCircle(@RequestParam("x") Integer x, @RequestParam("y") Integer y, @RequestParam("r") Integer r) {
+//        final Circle circle = new Circle();
+//        circle.setPosition(x, y);
+//        circle.setRadius(r);
+//        circle.setColor("red");
+//        circle.setId("123456");
+//        circle.setLastUpdateTime(DateTime.now());
+//
+//        circlesRepository.save(circle);
+//    }
 
     @GetMapping("/pipeline-test")
     public void pipelineTest(@RequestParam("uid1") Integer uid1, @RequestParam("uid2") Integer uid2) {

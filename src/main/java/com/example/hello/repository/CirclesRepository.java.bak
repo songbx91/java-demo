@@ -1,0 +1,14 @@
+package com.example.hello.repository;
+
+import com.example.hello.model.Circle;
+//import org.apache.ibatis.annotations.Mapper;
+import org.socialsignin.spring.data.dynamodb.repository.EnableScan;
+import org.springframework.data.repository.CrudRepository;
+//import org.springframework.stereotype.Repository;
+
+//import java.util.List;
+
+@EnableScan
+//@Repository
+public interface CirclesRepository extends CrudRepository<Circle, String> {
+}
