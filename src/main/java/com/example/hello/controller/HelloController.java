@@ -4,8 +4,6 @@ import com.example.hello.helper.FriendshipHelper;
 import com.example.hello.model.*;
 import com.example.hello.model.dynamo.UserV2;
 import com.example.hello.model.type.GenderEnum;
-//import com.example.hello.repository.ArticleRepository;
-//import com.example.hello.repository.CirclesRepository;
 import com.example.hello.repository.HelloRepository;
 import com.example.hello.repository.UserV2Repository;
 import com.example.hello.request.FriendApply;
@@ -17,10 +15,8 @@ import com.example.hello.utils.GeneralUtils;
 import com.example.hello.utils.JsonUtils;
 import com.example.hello.utils.JwtUtils;
 import com.example.hello.utils.ResultVOUtil;
-import org.joda.time.DateTime;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -54,12 +50,6 @@ public class HelloController {
     @Autowired
     private FriendshipHelper friendshipHelper;
 
-//    @Autowired
-//    private CirclesRepository circlesRepository;
-//
-//    @Autowired
-//    private ArticleRepository articleRepository;
-
     @Autowired
     private UserV2Repository userV2Repository;
 
@@ -74,19 +64,10 @@ public class HelloController {
         userV2Repository.save(user);
     }
 
-//    @PostMapping("/article-create")
-//    public void articleCreate(@RequestParam("content") String content,
-//                              @RequestParam("type") String type,
-//                              @RequestParam("author") String author) {
-//        Article article = new Article();
-//        article.setSk("articleInfo");
-//        article.setContent(content);
-//        article.setType(type);
-//        article.setAuthor(author);
-//        System.out.println(article.toString());
-//        articleRepository.save(article);
-////        System.out.println("保存成功g");
-//    }
+    @PostMapping("/api-test")
+    public void test() {
+        System.out.println("test");
+    }
 
     @PostMapping("/get-token")
     public ResultVO<Object> getToken() throws IOException {

@@ -157,11 +157,16 @@
             <artifactId>commons-lang3</artifactId>
             <version>3.7</version>
         </dependency>
-        <dependency>
+<!--        <dependency>-->
 <!--            <groupId>com.github.derjust</groupId>-->
-            <groupId>io.github.boostchicken</groupId>
+<!--            <groupId>io.github.boostchicken</groupId>-->
+<!--            <artifactId>spring-data-dynamodb</artifactId>-->
+<!--            <version>5.2.5</version>-->
+<!--        </dependency>-->
+        <dependency>
+            <groupId>cool.meeky</groupId>
             <artifactId>spring-data-dynamodb</artifactId>
-            <version>5.2.5</version>
+            <version>1.0.0</version>
         </dependency>
         <dependency>
             <groupId>com.amazonaws</groupId>
