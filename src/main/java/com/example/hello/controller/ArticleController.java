@@ -23,7 +23,7 @@ public class ArticleController {
                        @RequestParam("content") String content,
                        @RequestParam("type") String type) {
         Article article = new Article();
-        article.setSk(System.currentTimeMillis() + "");
+        article.setSk((System.currentTimeMillis() / 1000) + "");
         article.setContent(content);
         article.setAuthor(author);
         article.setType(type);

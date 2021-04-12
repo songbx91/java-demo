@@ -12,6 +12,7 @@ import javax.crypto.SecretKey;
 import javax.crypto.spec.SecretKeySpec;
 import java.io.IOException;
 import java.util.*;
+import java.lang.reflect.*;
 
 public class JwtUtils {
     private static final Logger logger = LoggerFactory.getLogger(JwtUtils.class);
@@ -74,5 +75,10 @@ public class JwtUtils {
         BASE64Decoder decoder = new BASE64Decoder();
         byte[] encodedKey = decoder.decodeBuffer(SystemConstant.JWT_SECERT);
         return new SecretKeySpec(encodedKey, 0, encodedKey.length, "AES");
+    }
+
+    public Object createProxy(Object obj, Method method) {
+        Class<?>[] interfaces = obj.getClass().getInterfaces();
+        return obj;
     }
 }

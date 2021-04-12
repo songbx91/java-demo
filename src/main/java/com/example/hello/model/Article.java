@@ -15,6 +15,7 @@ public class Article {
     private String author;
     private String content;
     private String type;
+    private Integer score;
 
     @Id
     @JsonIgnore

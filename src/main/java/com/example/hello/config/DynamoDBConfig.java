@@ -9,8 +9,6 @@ import com.amazonaws.services.dynamodbv2.AmazonDynamoDB;
 import com.amazonaws.services.dynamodbv2.AmazonDynamoDBClientBuilder;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMapper;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMapperConfig;
-import com.example.hello.repository.ArticleRepository;
-import com.example.hello.repository.UserV2Repository;
 import org.socialsignin.spring.data.dynamodb.repository.config.EnableDynamoDBRepositories;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -18,10 +16,9 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
 
 @Configuration
-@EnableDynamoDBRepositories(basePackageClasses = {
-        ArticleRepository.class,
-        UserV2Repository.class
-})
+@EnableDynamoDBRepositories(
+        basePackages = "com.example.hello.repository",
+        dynamoDBMapperConfigRef = "dynamoDBMapperConfig")
 public class DynamoDBConfig {
 
     @Value("${amazon.aws.accesskey}")
@@ -42,10 +39,10 @@ public class DynamoDBConfig {
         return new BasicAWSCredentials(amazonAWSAccessKey, amazonAWSSecretKey);
     }
 
-//    @Bean
-//    public DynamoDBMapperConfig dynamoDBMapperConfig() {
-//        return DynamoDBMapperConfig.DEFAULT;
-//    }
+    @Bean
+    public DynamoDBMapperConfig dynamoDBMapperConfig() {
+        return DynamoDBMapperConfig.DEFAULT;
+    }
 
     @Bean
     @Primary
