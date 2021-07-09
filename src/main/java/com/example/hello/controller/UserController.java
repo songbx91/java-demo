@@ -2,10 +2,16 @@ package com.example.hello.controller;
 
 import com.example.hello.annotation.UserTokenCheck;
 import com.example.hello.event.UpdateUserTelEvent;
+import com.example.hello.filter.CustomSensitiveWordFilter;
+import com.example.hello.filter.CustomSensitiveWordFilterAdaptor;
+import com.example.hello.filter.ThirdPartySensitiveFilterAdaptor;
 import com.example.hello.mapper.UserMapper;
 import com.example.hello.model.User;
 import com.example.hello.repository.UserRepository;
 import com.example.hello.service.IUserService;
+import com.example.hello.service.impl.MultiThreadService;
+import com.example.hello.service.impl.StopThreadService;
+import com.example.hello.utils.SensitiveWordUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.ApplicationEventPublisher;
@@ -31,6 +37,9 @@ public class UserController {
 
     @Autowired
     private ApplicationEventPublisher applicationEventPublisher;
+
+    @Autowired
+    private CustomSensitiveWordFilter customSensitiveWordFilter;
 
     private static final Logger logger = LoggerFactory.getLogger(UserController.class);
 
@@ -88,5 +97,34 @@ public class UserController {
     @DeleteMapping("/user/{id}")
     public boolean removeById(@PathVariable("id") Integer id) {
         return userService.removeById(id);
+    }
+
+    @GetMapping("/user/namecheck")
+    public String nameCheck(@RequestParam("name") String name) {
+        SensitiveWordUtils sensitiveWordUtils = new SensitiveWordUtils();
+        sensitiveWordUtils.addSensitiveWordFilter(new CustomSensitiveWordFilterAdaptor());
+        sensitiveWordUtils.addSensitiveWordFilter(new ThirdPartySensitiveFilterAdaptor());
+
+        return sensitiveWordUtils.wordCheck(name);
+    }
+
+    @GetMapping("/multi-thread")
+    public void multiThread()
+    {
+        try {
+            MultiThreadService.exec();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @GetMapping("/stop-thread")
+    public void stopThread()
+    {
+        try {
+            StopThreadService.exec();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 }

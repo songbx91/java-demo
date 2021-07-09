@@ -1,6 +1,7 @@
 package com.example.hello.controller;
 
 import com.example.hello.model.Article;
+import com.example.hello.model.Rectangle;
 import com.example.hello.repository.ArticleRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -29,6 +30,16 @@ public class ArticleController {
         article.setType(type);
 
         articleRepository.save(article);
+    }
+
+    @GetMapping("/createRectangle")
+    public void createRectangle(@RequestParam("name") String name,
+                                @RequestParam("width") Integer width,
+                                @RequestParam("length") Integer length) {
+        new Rectangle.Builder().setName("rectangle" + name)
+                .setWidth(width)
+                .setLength(length)
+                .build();
     }
 
     @GetMapping("/list-by-author")

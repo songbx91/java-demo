@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.time.Instant;
 import java.util.Optional;
 
 @RestController
@@ -35,34 +36,35 @@ public class UserAmountController {
 
     @PostMapping("/pay")
     public void pay(@RequestParam("user_id") Long userId, @RequestParam("amount") Integer amount) {
+        System.out.println(Instant.EPOCH);
         Bill bill = new Bill();
         bill.setAmount(amount);
         userAmountHelper.pay(bill, userId);
-//        Optional<UserAmount> userAmountOptional = userAmountRepository.findById(userId);
-//        if (userAmountOptional.isPresent()) {
-//            UserAmount userAmount = userAmountOptional.get();
-//            int moneyRemain = userAmount.getMoney() - amount;
-//            if (moneyRemain >= 0) {
-//                userAmount.setMoney(moneyRemain);
-//                userAmountRepository.save(userAmount);
-//            } else {
-//                moneyRemain = userAmount.getMoneySubscribe() + moneyRemain;
-//                if (moneyRemain >= 0) {
-//                    userAmount.setMoney(0);
-//                    userAmount.setMoneySubscribe(moneyRemain);
-//                    userAmountRepository.save(userAmount);
-//                } else {
-//                    moneyRemain = userAmount.getMoneyFree() + moneyRemain;
-//                    if (moneyRemain >= 0) {
-//                        userAmount.setMoney(0);
-//                        userAmount.setMoneySubscribe(0);
-//                        userAmount.setMoneyFree(moneyRemain);
-//                        userAmountRepository.save(userAmount);
-//                    } else {
-//                        System.out.println("余额不足");
-//                    }
-//                }
-//            }
-//        }
+        Optional<UserAmount> userAmountOptional = userAmountRepository.findById(userId);
+        if (userAmountOptional.isPresent()) {
+            UserAmount userAmount = userAmountOptional.get();
+            int moneyRemain = userAmount.getMoney() - amount;
+            if (moneyRemain >= 0) {
+                userAmount.setMoney(moneyRemain);
+                userAmountRepository.save(userAmount);
+            } else {
+                moneyRemain = userAmount.getMoneySubscribe() + moneyRemain;
+                if (moneyRemain >= 0) {
+                    userAmount.setMoney(0);
+                    userAmount.setMoneySubscribe(moneyRemain);
+                    userAmountRepository.save(userAmount);
+                } else {
+                    moneyRemain = userAmount.getMoneyFree() + moneyRemain;
+                    if (moneyRemain >= 0) {
+                        userAmount.setMoney(0);
+                        userAmount.setMoneySubscribe(0);
+                        userAmount.setMoneyFree(moneyRemain);
+                        userAmountRepository.save(userAmount);
+                    } else {
+                        System.out.println("余额不足");
+                    }
+                }
+            }
+        }
     }
 }
